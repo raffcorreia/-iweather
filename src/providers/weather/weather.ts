@@ -11,9 +11,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WeatherProvider {
   apiKey = 'a82b8a48c590d7a0';
-  url;
+  url;                          //http://api.wunderground.com/api/a82b8a48c590d7a0/conditions/q/fl/miami.json
 
-  constructor(public http: Http) {
+  constructor(public http:Http) {
     console.log('Hello WeatherProvider Provider');
     this.url = 'http://api.wunderground.com/api/' + this.apiKey + '/conditions/q';
   }
