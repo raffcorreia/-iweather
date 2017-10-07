@@ -1,6 +1,5 @@
-This app is based on the video **Ionic 3 Mobile Weather App Build** by **Traversy Media**
+This app is based on the excelent [video](https://www.youtube.com/watch?v=qs2n_poLarc) tutorial **Ionic 3 Mobile Weather App Build** by **Traversy Media**
 
-Check out the video [here](https://www.youtube.com/watch?v=qs2n_poLarc)
 
 
 ## How to use this template
