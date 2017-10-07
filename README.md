@@ -1,4 +1,6 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+This app is based on the excelent [video](https://www.youtube.com/watch?v=qs2n_poLarc) tutorial **Ionic 3 Mobile Weather App Build** by **Traversy Media**
+
+
 
 ## How to use this template
 
