@@ -19,7 +19,6 @@ import { WeatherProvider } from '../../providers/weather/weather';
 export class SettingsPage {
   city:string;
   state:string;
-  zmw:string;
 
   protected listCities: any;
 
@@ -43,15 +42,10 @@ export class SettingsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
-
-  updateZMW(event){
+  
+  updateSettings(zmw?){
     console.log(event);
-    this.zmw = event;
-    this.updateSettings();
-  }
-
-  updateSettings(){
-    this.wheatherProvider.getWeather(this.city, this.state, this.zmw)
+    this.wheatherProvider.getWeather(this.city, this.state, zmw)
     .subscribe(w => {
       if(w.response.results) {
         this.listCities = w.response.results
@@ -59,8 +53,9 @@ export class SettingsPage {
         let location = {
           city:this.city,
           state:this.state,
-          zmw:this.zmw
+          zmw:zmw
         }
+        this.listCities = null;
         this.storage.set('location', JSON.stringify(location));
         this.navCtrl.push(HomePage);
       }
