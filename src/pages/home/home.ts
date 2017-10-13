@@ -11,7 +11,8 @@ export class HomePage {
   weather:any;
   location:{
     city:string,
-    state:string
+    state:string,
+    zmw:string
   }
 
   constructor(public navCtrl: NavController, 
@@ -27,13 +28,14 @@ export class HomePage {
       } else {
         this.location = {
           city: 'Miami',
-          state: 'FL'
+          state: 'FL',
+          zmw: null
         }
       }
       
-      this.wheatherProvider.getWeather(this.location.city, this.location.state)
+      this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw)
       .subscribe(weather => {
-        console.log(weather);
+        //console.log(weather);
         this.weather = weather.current_observation;
       });
 

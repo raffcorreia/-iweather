@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+
 /*
   Generated class for the WeatherProvider provider.
 
@@ -17,9 +18,17 @@ export class WeatherProvider {
     console.log('Hello WeatherProvider Provider');
     this.url = 'http://api.wunderground.com/api/' + this.apiKey + '/conditions/q';
   }
+  
+  getWeather(city, state, zmw){
+    var param: string;
 
-  getWeather(city, state){
-    return this.http.get(this.url + '/' + state + '/' + city + '.json')
+    if(zmw == null){
+      param = '/' + state + '/' + city
+    } else {
+      param = '/zmw:' + zmw;
+    }
+    
+    return this.http.get(this.url + param + '.json')
     .map(res => res.json());
   }
 

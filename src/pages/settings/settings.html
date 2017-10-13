@@ -14,11 +14,11 @@
 
 
 <ion-content padding>
+  <form (ngSubmit)="updateSettings()">
   <ion-grid>
     <ion-row>
       <ion-col width-100>
         <ion-list>
-          <form (ngSubmit)="saveForm()">
             <ion-item>
               <ion-label fixed>
                 City
@@ -31,10 +31,30 @@
               </ion-label>
               <ion-input [(ngModel)]="state" name="state" type="text"></ion-input>
             </ion-item>
-            <button ion-button type="submit" block>Save Changes</button>
-          </form>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-row *ngFor="let row of listCities" (click)="updateZMW(row.zmw)" >
+          <ion-col>
+            <ion-item>
+              {{row.city}}
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              {{row.state}}
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              {{row.country_name}}
+            </ion-item>
+            </ion-col>  
+        </ion-row>
+      </ion-grid>
+    <button ion-button type="submit" block>Save Changes</button>
+  </form>
 </ion-content>

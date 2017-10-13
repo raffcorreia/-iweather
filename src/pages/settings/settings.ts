@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { HomePage } from '../home/home'
+import { WeatherProvider } from '../../providers/weather/weather';
+
 /**
  * Generated class for the SettingsPage page.
  *
@@ -17,9 +19,13 @@ import { HomePage } from '../home/home'
 export class SettingsPage {
   city:string;
   state:string;
+  zmw:string;
+
+  protected listCities: any;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
+    private wheatherProvider:WeatherProvider,
     private storage:Storage) {
       
       this.storage.get('location').then((val) => {
@@ -28,8 +34,8 @@ export class SettingsPage {
           this.city = location.city;
           this.state = location.state;
         } else {
-          this.city = 'Miami';
-          this.state = 'FL';
+          this.city = 'Toronto';
+          this.state = 'ON';
         }
       });
   }
@@ -38,14 +44,27 @@ export class SettingsPage {
     console.log('ionViewDidLoad SettingsPage');
   }
 
-  saveForm(){
-    let location = {
-      city:this.city,
-      state:this.state
-    }
-    console.log(location);
-    this.storage.set('location', JSON.stringify(location));
-    this.navCtrl.push(HomePage);
+  updateZMW(event){
+    console.log(event);
+    this.zmw = event;
+    this.updateSettings();
   }
 
+  updateSettings(){
+    this.wheatherProvider.getWeather(this.city, this.state, this.zmw)
+    .subscribe(w => {
+      if(w.response.results) {
+        this.listCities = w.response.results
+      } else {
+        let location = {
+          city:this.city,
+          state:this.state,
+          zmw:this.zmw
+        }
+        this.storage.set('location', JSON.stringify(location));
+        this.navCtrl.push(HomePage);
+      }
+    });
+  }
+  
 }
