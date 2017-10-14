@@ -76,6 +76,22 @@ $list-md-text-color:color($colors, light);
   }
 }
 
+.wheatherIcon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  background-color: color($colors, light);
+
+  img{
+    display: block;
+    margin: auto;
+  }
+}
 
 // App iOS Variables
 // --------------------------------------------------

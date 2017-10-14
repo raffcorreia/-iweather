@@ -57,7 +57,7 @@ export class SettingsPage {
         this.storage.set('location', JSON.stringify(location));
         this.navCtrl.push(HomePage);
       } else {
-        this.listCities = w.response.results
+        this.listCities = w.response.results;
       }
     });
   }
