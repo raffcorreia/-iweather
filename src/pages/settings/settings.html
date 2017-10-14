@@ -23,13 +23,13 @@
               <ion-label fixed>
                 City
               </ion-label>
-              <ion-input [(ngModel)]="city" name="city" type="text"></ion-input>
+              <ion-input [(ngModel)]="city" name="city" type="text" (input)="onInput()"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label fixed>
                 State
               </ion-label>
-              <ion-input [(ngModel)]="state" name="state" type="text"></ion-input>
+              <ion-input [(ngModel)]="state" name="state" type="text" (input)="onInput()"></ion-input>
             </ion-item>
           </ion-list>
           <ion-label class="obs">* write the state or province abbreviations or leave it blank</ion-label>
@@ -51,5 +51,6 @@
         </ion-row>
       </ion-grid>
     <button ion-button type="submit" block>Save Changes</button>
+    <button ion-button type="reset" block (click)="resetForm()">Cancel</button>
   </form>
 </ion-content>

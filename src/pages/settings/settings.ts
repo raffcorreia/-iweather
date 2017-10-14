@@ -27,17 +27,7 @@ export class SettingsPage {
     public navParams: NavParams,
     private wheatherProvider:WeatherProvider,
     private storage:Storage) {
-      
-      this.storage.get('location').then((val) => {
-        if(val != null){
-          let location = JSON.parse(val);
-          this.city = location.city;
-          this.state = location.state;
-        } else {
-          this.city = 'Toronto';
-          this.state = 'ON';
-        }
-      });
+      this.resetForm();
   }
 
   ionViewDidLoad() {
@@ -53,11 +43,15 @@ export class SettingsPage {
     this.wheatherProvider.getWeather(this.city, this.state, this.zmw)
     .subscribe(w => {
       if(w.current_observation) {
+        this.city = w.current_observation.display_location.city;
+        this.state = w.current_observation.display_location.state;
+        
         let location = {
           city:this.city,
           state:this.state,
           zmw:this.zmw
         }
+        
         this.zmw = null;
         this.listCities = null;
         this.storage.set('location', JSON.stringify(location));
@@ -68,4 +62,22 @@ export class SettingsPage {
     });
   }
   
+  onInput(){
+    this.zmw = null;
+  }
+
+  resetForm(){
+    this.zmw = null;
+    this.listCities = null;
+    this.storage.get('location').then((val) => {
+      if(val != null){
+        let location = JSON.parse(val);
+        this.city = location.city;
+        this.state = location.state;
+      } else {
+        this.city = 'Toronto';
+        this.state = 'ON';
+      }
+    });
+  }
 }
