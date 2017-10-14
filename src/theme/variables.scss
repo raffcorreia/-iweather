@@ -34,11 +34,13 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #6495ed,
-  secondary:  #435d8c,
-  danger:     #f53d3d,
-  light:      #ffffff,
-  dark:       #222
+  primary:         #6495ed,
+  secondary:       #435d8c,
+  danger:          #f53d3d,
+  light:           #ffffff,
+  dark:            #222,
+  selected:        rgb(58, 117, 73),
+  selectedHover:   rgb(157, 201, 167)
 );
 
 //Top toolbar
@@ -52,6 +54,28 @@ $tabs-md-tab-text-color: color($colors, light);
 
 $list-md-background-color:color($colors, secondary);
 $list-md-text-color:color($colors, light);
+
+.obs {
+  color: color($colors, light);
+}
+
+.cityList {
+  ion-row {
+    color: color($colors, light);
+    background-color: color($colors, secondary);
+    border-bottom:1pt solid color($colors, light);
+  }
+  ion-row:hover { 
+    background-color: color($colors, primary);
+  }
+  .selectedRow {
+    background-color: color($colors, selected);
+  }
+  .selectedRow:hover { 
+    background-color: color($colors, selectedHover);;
+  }
+}
+
 
 // App iOS Variables
 // --------------------------------------------------

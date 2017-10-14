@@ -32,26 +32,21 @@
               <ion-input [(ngModel)]="state" name="state" type="text"></ion-input>
             </ion-item>
           </ion-list>
+          <ion-label class="obs">* write the state or province abbreviations or leave it blank</ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-grid>
-        <ion-row *ngFor="let row of listCities" (click)="updateSettings(row.zmw)" >
+    <ion-grid class="cityList">
+        <ion-row *ngFor="let row of listCities" (click)="updateZMW(row.zmw)" [ngClass]="{'selectedRow' : (zmw == row.zmw)}">
           <ion-col>
-            <ion-item>
               {{row.city}}
-            </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item>
               {{row.state}}
-            </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item>
               {{row.country_name}}
-            </ion-item>
             </ion-col>  
         </ion-row>
       </ion-grid>
