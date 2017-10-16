@@ -20,6 +20,7 @@ export class SettingsPage {
   city:string;
   state:string;
   zmw:string;
+  useGeoLocation:boolean;
 
   protected listCities: any;
 
@@ -28,6 +29,7 @@ export class SettingsPage {
     private wheatherProvider:WeatherProvider,
     private storage:Storage) {
       this.resetForm();
+      console.log(this.useGeoLocation);
   }
 
   ionViewDidLoad() {
@@ -40,7 +42,7 @@ export class SettingsPage {
   }
 
   updateSettings(){
-    this.wheatherProvider.getWeather(this.city, this.state, this.zmw)
+    this.wheatherProvider.getWeather(this.city, this.state, this.zmw, this.useGeoLocation)
     .subscribe(w => {
       if(w.current_observation) {
         this.city = w.current_observation.display_location.city;
@@ -49,11 +51,10 @@ export class SettingsPage {
         let location = {
           city:this.city,
           state:this.state,
-          zmw:this.zmw
+          zmw:this.zmw,
+          useGeoLocation:this.useGeoLocation
         }
-        
-        this.zmw = null;
-        this.listCities = null;
+        this.clearList();
         this.storage.set('location', JSON.stringify(location));
         this.navCtrl.push(HomePage);
       } else {
@@ -62,21 +63,23 @@ export class SettingsPage {
     });
   }
   
-  onInput(){
+  clearList(){
     this.zmw = null;
+    this.listCities = null;
   }
 
   resetForm(){
-    this.zmw = null;
-    this.listCities = null;
+    this.clearList();
     this.storage.get('location').then((val) => {
       if(val != null){
         let location = JSON.parse(val);
         this.city = location.city;
         this.state = location.state;
+        this.useGeoLocation = location.useGeoLocation;
       } else {
         this.city = 'Toronto';
         this.state = 'ON';
+        this.useGeoLocation=false;
       }
     });
   }

@@ -20,16 +20,22 @@
       <ion-col width-100>
         <ion-list>
             <ion-item>
+                <ion-label>
+                  Use Geolocation
+                </ion-label>
+                <ion-checkbox [(ngModel)]="useGeoLocation" name="useGeoLocation" ></ion-checkbox>
+            </ion-item>
+            <ion-item>
               <ion-label fixed>
                 City
               </ion-label>
-              <ion-input [(ngModel)]="city" name="city" type="text" (input)="onInput()"></ion-input>
+              <ion-input [(ngModel)]="city" name="city" type="text" (input)="clearList()" disabled="{{useGeoLocation}}"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label fixed>
                 State
               </ion-label>
-              <ion-input [(ngModel)]="state" name="state" type="text" (input)="onInput()"></ion-input>
+              <ion-input [(ngModel)]="state" name="state" type="text" (input)="clearList()" disabled="{{useGeoLocation}}"></ion-input>
             </ion-item>
           </ion-list>
           <ion-label class="obs">* write the state or province abbreviations or leave it blank</ion-label>
