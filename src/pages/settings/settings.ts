@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { HomePage } from '../home/home'
 import { WeatherProvider } from '../../providers/weather/weather';
-
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -43,7 +44,7 @@ export class SettingsPage {
 
   updateSettings(){
     this.wheatherProvider.getWeather(this.city, this.state, this.zmw, this.useGeoLocation)
-    .subscribe(w => {
+    .then(w => { 
       if(w.current_observation) {
         this.city = w.current_observation.display_location.city;
         this.state = w.current_observation.display_location.state;

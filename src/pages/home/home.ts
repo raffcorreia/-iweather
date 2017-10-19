@@ -12,7 +12,8 @@ export class HomePage {
   location:{
     city:string,
     state:string,
-    zmw:string
+    zmw:string,
+    useGeoLocation:boolean
   }
 
   constructor(public navCtrl: NavController, 
@@ -29,12 +30,13 @@ export class HomePage {
         this.location = {
           city: 'Miami',
           state: 'FL',
-          zmw: null
+          zmw: null,
+          useGeoLocation: false
         }
       }
       
-      this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw)
-      .subscribe(weather => {
+      this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw, this.location.useGeoLocation)
+      .then(weather => {
         //console.log(weather);
         this.weather = weather.current_observation;
       });
