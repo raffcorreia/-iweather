@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Geoposition } from '@ionic-native/geolocation';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 /*
