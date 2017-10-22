@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Geoposition } from '@ionic-native/geolocation';
+import { LoadingController } from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
 
 /*
@@ -14,51 +15,75 @@ import 'rxjs/add/operator/toPromise';
 export class WeatherProvider {
   apiKey = 'a82b8a48c590d7a0';
   url;                          //http://api.wunderground.com/api/a82b8a48c590d7a0/conditions/q/fl/miami.json
+  loading;
 
   constructor(public http:Http,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation,
+    public loadingCtrl: LoadingController) {
       
     console.log('Hello WeatherProvider Provider');
     this.url = 'http://api.wunderground.com/api/' + this.apiKey + '/conditions/q';
   }
 
   getWeather(city, state, zmw, useGeoLocation) : Promise<any>{
+    
+    this.showLoading();
+
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        var param: string;
-        if(useGeoLocation) {          
-          this.getGeoLocation()
-          .then( resp => {
-            var latitude = resp.coords.latitude;
-            var longitude = resp.coords.longitude;
-
-            param = '/' + latitude + ',' + longitude;
-
-            this.http.get(this.url + param + '.json')
-            .subscribe(res => {
-              resolve(res.json());
-            });
-          });
-        } else {
-          if(zmw == null){
-            param = '/' + state + '/' + city
-          } else {
-            param = '/zmw:' + zmw;
-          }
+      var param: string;
+      if(useGeoLocation) {          
+        this.getGeoLocation()
+        .then( resp => {
+          var latitude = resp.coords.latitude;
+          var longitude = resp.coords.longitude;
+          
+          param = '/' + latitude + ',' + longitude;
+          
           this.http.get(this.url + param + '.json')
           .subscribe(res => {
+            this.dismissLoading();
             resolve(res.json());
           });
+        });
+      } else {
+        if(zmw == null){
+          param = '/' + state + '/' + city
+        } else {
+          param = '/zmw:' + zmw;
         }
-      }, 1000);
+        this.http.get(this.url + param + '.json')
+        .subscribe(res => {
+          this.dismissLoading();
+          resolve(res.json());
+        });
+      }
     });
   }
   
   getGeoLocation() : Promise<Geoposition>{
     return this.geolocation.getCurrentPosition()
     .catch((error) => {
-      console.log('Error getting location', error);
       return null;
     });
+  }
+
+  showLoading() {
+    if(!this.loading){
+      this.loading = this.loadingCtrl.create({
+        spinner: 'dots',
+        content: 'Loading Please Wait...'
+      });
+      this.loading.present();
+      setTimeout(() => {
+        this.dismissLoading();
+      }, 20000);
+    }
+  }
+
+  dismissLoading(){
+      if(this.loading){
+        this.loading.dismiss();
+        this.loading = null;
+      }
   }
 }

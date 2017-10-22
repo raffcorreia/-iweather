@@ -30,7 +30,6 @@ export class SettingsPage {
     private wheatherProvider:WeatherProvider,
     private storage:Storage) {
       this.resetForm();
-      console.log(this.useGeoLocation);
   }
 
   ionViewDidLoad() {
@@ -38,7 +37,6 @@ export class SettingsPage {
   }
 
   updateZMW(event){
-    console.log(event);
     this.zmw = event;
   }
 

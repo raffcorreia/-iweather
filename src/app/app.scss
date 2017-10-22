@@ -50,3 +50,10 @@
 .desc {
     font-size:30px;
 }
+
+.spinner-circles circle,
+.spinner-bubbles circle,
+.spinner-dots circle {
+    fill: color($colors, primary);
+    r: 10;
+}
