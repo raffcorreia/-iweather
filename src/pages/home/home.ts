@@ -34,13 +34,17 @@ export class HomePage {
           useGeoLocation: false
         }
       }
-      
-      this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw, this.location.useGeoLocation)
-      .then(weather => {
-        //console.log(weather);
-        this.weather = weather.current_observation;
-      });
-
+      this.refreshWeather();
+    });
+  }
+  
+  refreshWeather(refresher?){
+    this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw, this.location.useGeoLocation)
+    .then(weather => {
+      this.weather = weather.current_observation;
+      if(refresher){
+        refresher.complete();
+      }
     });
   }
 }

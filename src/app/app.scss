@@ -57,3 +57,15 @@
     fill: color($colors, primary);
     r: 10;
 }
+
+.refresher-refreshing .spinner-dots circle {
+    fill: color($colors, light);
+}
+
+.has-refresher .scroll-content {
+    border-top: 0px;
+}
+
+.ion-md-arrow-down {
+    color: color($colors, light);
+}

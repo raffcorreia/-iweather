@@ -5,6 +5,10 @@
 </ion-header>
 
 <ion-content padding class="home">
+  <ion-refresher (ionRefresh)="refreshWeather($event)">
+    <ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+    
+  </ion-refresher>
   <ion-grid *ngIf="weather">
     <ion-row>
       <ion-col width-50 offset-25>
