@@ -26,7 +26,7 @@ export class WeatherProvider {
   }
 
   getWeather(city, state, zmw, useGeoLocation) : Promise<any>{
-    
+
     this.showLoading();
 
     return new Promise((resolve, reject) => {
@@ -47,16 +47,48 @@ export class WeatherProvider {
         });
       } else {
         if(zmw == null){
-          param = '/' + state + '/' + city
+          this.getWeatherByCityState(city, state).then(
+            res => {
+              this.dismissLoading();
+              resolve(res);
+            }
+          );
         } else {
           param = '/zmw:' + zmw;
+          this.http.get(this.url + param + '.json')
+          .subscribe(res => {
+            this.dismissLoading();
+            resolve(res.json());
+          });
         }
-        this.http.get(this.url + param + '.json')
-        .subscribe(res => {
-          this.dismissLoading();
-          resolve(res.json());
-        });
       }
+    });
+  }
+
+  getWeatherByCityState(city, state, attempt?) : Promise<any>{
+    return new Promise((resolve, reject) => {
+      var param: string;
+      if(!attempt){
+        attempt = 0
+      }
+      attempt++;
+      if(attempt == 1){
+        param = '/' + state + '/' + city;
+      } else {
+        param = '//' + city;
+      }
+      this.http.get(this.url + param + '.json')
+      .subscribe(res => {
+        if(!res.json().current_observation && !res.json().response.results && attempt == 1) {
+          this.getWeatherByCityState(city, state, attempt).then(
+            res => {
+              resolve(res);
+            }
+          )
+        } else {
+          resolve(res.json());
+        }
+      });
     });
   }
   

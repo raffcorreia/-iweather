@@ -24,7 +24,6 @@ export class HomePage {
 
       var wetherParam = navParams.get('current_observation');
       if(wetherParam){
-        console.log("aaaaaaa");
         this.weather = wetherParam;
       }
   }
