@@ -57,7 +57,21 @@ export class SettingsPage {
         this.storage.set('location', JSON.stringify(location));
         this.navCtrl.setRoot(HomePage, w);
       } else {
-        this.listCities = w.response.results;
+        this.listCities = w.response.results.sort((a, b) =>{
+          if (a.country_name < b.country_name) {
+            return -1;
+          } else if (a.country_name > b.country_name) {
+            return 1;
+          } else {
+            if (a.state < b.state) {
+              return -1;
+            } else if (a.state > b.state) {
+              return 1;
+            } else {
+              return 0;
+            }  
+          }
+        });
       }
     });
   }
