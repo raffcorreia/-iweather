@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather';
 import { Storage } from '@ionic/storage';
+import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -17,9 +18,15 @@ export class HomePage {
   }
 
   constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
     private wheatherProvider:WeatherProvider,
     private storage:Storage) {
 
+      var wetherParam = navParams.get('current_observation');
+      if(wetherParam){
+        console.log("aaaaaaa");
+        this.weather = wetherParam;
+      }
   }
 
   ionViewWillEnter(){
@@ -34,7 +41,9 @@ export class HomePage {
           useGeoLocation: false
         }
       }
-      this.refreshWeather();
+      if (!this.weather){
+        this.refreshWeather();
+      }
     });
   }
   

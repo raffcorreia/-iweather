@@ -55,7 +55,7 @@ export class SettingsPage {
         }
         this.clearList();
         this.storage.set('location', JSON.stringify(location));
-        this.navCtrl.push(HomePage);
+        this.navCtrl.setRoot(HomePage, w);
       } else {
         this.listCities = w.response.results;
       }
