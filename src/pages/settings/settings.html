@@ -12,13 +12,12 @@
 
 </ion-header>
 
-
-<form (ngSubmit)="updateSettings()">
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col width-100>
-        <ion-list>
+  <form (ngSubmit)="updateSettings()">
+    <ion-grid>
+      <ion-row>
+        <ion-col width-100>
+          <ion-list>
             <ion-item>
                 <ion-label>
                   Use Geolocation
@@ -58,5 +57,5 @@
       </ion-grid>
     <button ion-button type="submit" block>Save Changes</button>
     <button ion-button type="reset" block (click)="resetForm()">Cancel</button>
-  </ion-content>
-</form>
+  </form>
+</ion-content>
