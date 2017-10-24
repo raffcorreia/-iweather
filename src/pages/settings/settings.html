@@ -13,8 +13,8 @@
 </ion-header>
 
 
+<form (ngSubmit)="updateSettings()">
 <ion-content padding>
-  <form (ngSubmit)="updateSettings()">
   <ion-grid>
     <ion-row>
       <ion-col width-100>
@@ -58,5 +58,5 @@
       </ion-grid>
     <button ion-button type="submit" block>Save Changes</button>
     <button ion-button type="reset" block (click)="resetForm()">Cancel</button>
-  </form>
-</ion-content>
+  </ion-content>
+</form>
