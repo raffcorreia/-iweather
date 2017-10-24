@@ -18,8 +18,8 @@ export class WeatherProvider {
   loading;
 
   constructor(public http:Http,
-    private geolocation: Geolocation,
-    public loadingCtrl: LoadingController) {
+              private geolocation: Geolocation,
+              public loadingCtrl: LoadingController) {
       
     console.log('Hello WeatherProvider Provider');
     this.url = 'http://api.wunderground.com/api/' + this.apiKey + '/conditions/q';

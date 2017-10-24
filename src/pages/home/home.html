@@ -6,9 +6,11 @@
 
 <ion-content padding class="home">
   
-  <ion-refresher (ionRefresh)="refreshWeather($event)">
+  <ion-refresher (ionRefresh)="refreshWeather($event)" *ngIf="this.location">
     <ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
   </ion-refresher>
+  
+  <h2 class="location" *ngIf="!this.location">Please select a location on the settings tab!</h2>
 
   <ion-grid *ngIf="weather">
     <ion-row>

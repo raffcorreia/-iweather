@@ -18,27 +18,20 @@ export class HomePage {
   }
 
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams,
-    private wheatherProvider:WeatherProvider,
-    private storage:Storage) {
+              public navParams: NavParams,
+              private wheatherProvider:WeatherProvider,
+              private storage:Storage) {
 
-      var wetherParam = navParams.get('current_observation');
-      if(wetherParam){
-        this.weather = wetherParam;
-      }
+    var wetherParam = navParams.get('current_observation');
+    if(wetherParam){
+      this.weather = wetherParam;
+    }
   }
 
   ionViewWillEnter(){
     this.storage.get('location').then((val) => {
       if(val != null){
         this.location = JSON.parse(val);
-      } else {
-        this.location = {
-          city: 'Miami',
-          state: 'FL',
-          zmw: null,
-          useGeoLocation: false
-        }
       }
       if (!this.weather){
         this.refreshWeather();
@@ -47,12 +40,14 @@ export class HomePage {
   }
   
   refreshWeather(refresher?){
-    this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw, this.location.useGeoLocation)
-    .then(weather => {
-      this.weather = weather.current_observation;
-      if(refresher){
-        refresher.complete();
-      }
-    });
+    if(this.location){
+      this.wheatherProvider.getWeather(this.location.city, this.location.state, this.location.zmw, this.location.useGeoLocation)
+      .then(weather => {
+        this.weather = weather.current_observation;
+      });
+    }
+    if(refresher){
+      refresher.complete();
+    }
   }
 }

@@ -26,9 +26,9 @@ export class SettingsPage {
   protected listCities: any;
 
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams,
-    private wheatherProvider:WeatherProvider,
-    private storage:Storage) {
+              public navParams: NavParams,
+              private wheatherProvider:WeatherProvider,
+              private storage:Storage) {
       this.resetForm();
   }
 
